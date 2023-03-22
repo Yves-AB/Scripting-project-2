@@ -1,8 +1,10 @@
 import requests
 import sys
 import re
-def main():
 
+
+def main():
+    #if arguments are <2 then there is no domain
     if len(sys.argv) < 2:
         print("No domain provided")
         sys.exit(1)
@@ -10,25 +12,16 @@ def main():
         DOMAIN = sys.argv[1]
         print(DOMAIN)
 
-    test=None
-
     try:
         test = requests.get(f"https://{DOMAIN}")
-        if (test.status_code == 404):
+        if (test.status_code >= 404):
             print("Invalid domain entered")
             sys.exit(1)
-    except requests.exceptions.RequestException as error:
-        print(f"Connection error: {error}")
-    except requests.exceptions.HTTPError as error :
-        print(f"HTTP Exception occured: {error} of code: ",test.status_code)
     except Exception as error:
-        #Do nothing
-        print(f"Some other exception occured: {error}")
+        print(f"Some exception occurred: {error}")
+        return
 
-    if (test.status_code == 404):
-        print("Invalid domain entered")
-        sys.exit(1)
-    
+    #Load directories and subdomains
     dirs, subdomains = loadFiles()
 
     valid_dirs = []
@@ -38,33 +31,40 @@ def main():
         if request.status_code == 200:
             print(f"Found valid url: {url}")
             valid_dirs.append(url)
+
+    #Create new directory
     with open("output_dirs.bat", "w") as f1:
         for i in valid_dirs:
-            f1.write(i, "\n")
+            f1.write(i + "\n")
 
     valid_subdomains = []
     for subdomain in subdomains:
         url = f"https://{subdomain}.{DOMAIN}"
         request = requests.get(url)
         if request.status_code == 200:
-            print("Found valid url: {url}")
+            print(f"Found valid url: {url}")
             valid_subdomains.append(url)
+    #Create new subdomain
     with open("output_subdomains", "w") as f2:
         for i in valid_subdomains:
-            f2.write(valid_subdomains, "\n")
+            f2.write(i + "\n")
 
+    #Load method getFiles() that gets the matching 
     valid_files = getFiles(DOMAIN)
-        
+    with open("output_files", "w") as f3:
+        for i in valid_files:
+            f3.write(i + "\n")
+
 def getFiles(DOMAIN):
     files = []
     request = requests.get(f"https://{DOMAIN}")
     html = request.text
     # Use regular expressions to extract all file names from the HTML
-    pattern = r'href=["\']?([^"\'>]+)'
+    pattern = r'href=["\']?([^"\'>]+)'  #From regex in class
     files += re.findall(pattern, html)
-
     return files
 
+#method to load the files that were sent to us
 def loadFiles():
     with open("subdomains_dictionary.bat", "r") as f1:
         dirs = f1.read().splitlines()
@@ -74,12 +74,5 @@ def loadFiles():
 
     return dirs, subdomains
 
-
-def writeFiles(valid_subdomains, valid_dirs, valid_files):
-    with open("output_subdomains", "w") as f2:
-        f2.write(valid_subdomains, "\n")
-    with open("output_files", "w") as f3:
-        f3.write(valid_files, "\n")
-        
-
-main()
+if __name__ == '__main__':
+    main()
