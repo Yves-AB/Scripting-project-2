@@ -7,3 +7,5 @@ At first i faced an error where if i did not write the url after the file it wou
 3) After that i created a loadfile() method that loads the file u sent us in order to scan for the directories and subdomains. The method returns 2 vars which i stored. 
 
 4) Next i watched a youtube video that explained the request library and it's functionality. I found out that if the request im sendign is equal to 200 or then its valid and if its above 404 then it's invalid 
+
+5) Next before i started finding the valid domains and subdomains, i created a method that searches for the valid files. However i did not do its regex immediatly so i continued on with my code without  finding the files
