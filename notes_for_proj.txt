@@ -1,0 +1,18 @@
+for project : 
+
+string = "lau lcu liu lol"
+pattern = r"l\w+" 
+list = re.findall(pattern,string)
+returns : lau , lcu ,liu ,lol
+
+string = "lcau lcu liu lol"
+pattern = r"(?:l(\w+))"  	 \1 : will return \w+ because it ignores first one since optional
+list = re.findall(pattern,string)
+returns au, cu, tu ,ol	   we need this to acess url of href for files
+
+string = 'href="jkasdkjads/jksga"'   //we need to only get what's between " " 
+pattern = r"*.*?"" // will stop when it reaches 1st double quotation 
+list = re.findall(pattern,string)
+
+
+
