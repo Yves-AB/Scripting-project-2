@@ -9,3 +9,5 @@ At first i faced an error where if i did not write the url after the file it wou
 4) Next i watched a youtube video that explained the request library and it's functionality. I found out that if the request im sendign is equal to 200 or then its valid and if its above 404 then it's invalid 
 
 5) Next before i started finding the valid domains and subdomains, i created a method that searches for the valid files. However i did not do its regex immediatly so i continued on with my code without  finding the files
+
+6) Next i created 2 arrays. 1 to store the directories and one to store the subdirectories. After that i had a problem with finding the matches and did not know how to check for the valid dirs and subdomains using the files u sent us. So after googling it and checking youtube and checking for help on the python website. I was able to come up with a pattern that matches the valid domains and subdomains on the url ( i wasnt aware of what requests.get(url) does ) 
