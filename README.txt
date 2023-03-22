@@ -1,4 +1,6 @@
 Step by step:
+Please note that i was unaware of what atomic commits are and was very unfamiliar with github. Therefore i did not think much of atomic commits and did not know we had to commit every step we do onto github until i saw the step at the end of the paper. I worked really hard for this project.
+
 1- First if all i imported sys in order to be able to take inputs from the user from shell (command line arguments)
 At first i faced an error where if i did not write the url after the file it would throw exceptions because the keep would keep running. So i added an if statement to take care of that.
 
