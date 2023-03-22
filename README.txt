@@ -13,3 +13,6 @@ At first i faced an error where if i did not write the url after the file it wou
 6) Next i created 2 arrays. 1 to store the directories and one to store the subdirectories. After that i had a problem with finding the matches and did not know how to check for the valid dirs and subdomains using the files u sent us. So after googling it and checking youtube and checking for help on the python website. I was able to come up with a pattern that matches the valid domains and subdomains on the url ( i wasnt aware of what requests.get(url) does ) 
 
 7) At this point i had still not done the method that gets the valid files . So after finding the matches for the domains and subdomains i created new files to store the values in . 
+
+8) After that i referred to the notes i took in class when u explained on how to find the valid files and came up with a regex pattern that matches the files after href. So i completed the getFiles() method and stored the files in a new file and with that the project was done. 
+
