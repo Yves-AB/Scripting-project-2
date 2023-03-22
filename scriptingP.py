@@ -1,6 +1,6 @@
 import requests
 import sys
-
+import re
 def main():
 
     if len(sys.argv) < 2:
@@ -10,7 +10,20 @@ def main():
         DOMAIN = sys.argv[1]
         print(DOMAIN)
 
-    test = requests.get(f"https://{DOMAIN}")
+    test=None
+
+    try:
+        test = requests.get(f"https://{DOMAIN}")
+        if (test.status_code == 404):
+            print("Invalid domain entered")
+            sys.exit(1)
+    except requests.exceptions.RequestException as error:
+        print(f"Connection error: {error}")
+    except requests.exceptions.HTTPError as error :
+        print(f"HTTP Exception occured: {error} of code: ",test.status_code)
+    except Exception as error:
+        #Do nothing
+        print(f"Some other exception occured: {error}")
 
     if (test.status_code == 404):
         print("Invalid domain entered")
@@ -46,8 +59,10 @@ def getFiles(DOMAIN):
     files = []
     request = requests.get(f"https://{DOMAIN}")
     html = request.text
+    # Use regular expressions to extract all file names from the HTML
+    pattern = r'href=["\']?([^"\'>]+)'
+    files += re.findall(pattern, html)
 
-    files.append(url)
     return files
 
 def loadFiles():
